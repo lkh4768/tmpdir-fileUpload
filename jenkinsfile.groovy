@@ -1,11 +1,8 @@
-properties([gitLabConnection('gitlab')])
-
 node {
 	try {
         notifyBuild('STARTED')
 
 		stage "Init"
-		gitlabCommitStatus("Init") {
 			STAGE = "Init"
 			checkout scm
 			DEVELOP_BRANCH = "develop"
@@ -23,18 +20,14 @@ node {
 			else ENV_PHASE = "prd"
 
 			echo "${PACKAGE_NAME}, ${PACKAGE_NAME_LOW}, ${PACKAGE_VERSION}, ${IMAGE_NAME}, ${REGISTRY_HOST}, ${REGISTRY_USER}, ${REGISTRY_PASSWORD}, ${ENV_PHASE}"
-		}
 
 		if(env.BRANCH_NAME == DEVELOP_BRANCH){
 			stage "Unit testing"
-			gitlabCommitStatus("Unit testing") {
 				STAGE = "Unit testing"
 				sh "./gradlew clean check"
 				junit "build/test-results/test/TEST-*.xml"
-			}
 
 			stage "Sonarqube"
-			gitlabCommitStatus("Sonarqube") {
 				STAGE = "Sonarqube"
 				withSonarQubeEnv("sonarqube") {
 					sh "./gradlew --info sonarqube"
@@ -46,37 +39,27 @@ node {
 							error "Pipeline aborted due to quality gate failure: ${qg.status}"
 						}
 				}
-			}
 
 			stage "Publish image"
-			gitlabCommitStatus("Publish image") {
 				STAGE = "Publish image"
 				sh "./gradlew build"
 				withDockerRegistry([credentialsId: 'registry', url: 'https://dev.sw-warehouse.xyz:1450']) {
 					def image = docker.build("$REGISTRY_HOST/$IMAGE_NAME", "--build-arg PACKAGE_NAME=${PACKAGE_NAME} --build-arg PACKAGE_VERSION=${PACKAGE_VERSION} .")
 					image.push()
 				}
-			}
 
 			stage "Deploy on stage"
-			gitlabCommitStatus("Deploy on stage") {
 				STAGE = "Deploy on stage"
 				sh "sshpass -p '0)8*WESehzj' ssh -T -oStrictHostKeyChecking=no -p 22000 docker@dev.sw-warehouse.xyz \"docker rm -f ${IMAGE_NAME}-${ENV_PHASE} 2> /dev/null | echo ok && docker login -u ${REGISTRY_USER} -p ${REGISTRY_PASSWORD} ${REGISTRY_HOST} && docker pull ${REGISTRY_HOST}/${IMAGE_NAME} && docker run -d --network=tmpdir-${ENV_PHASE}-net -p 6000:6000 -e ENV_PHASE='${ENV_PHASE}' -v /app/tmpdir-fileupload-${ENV_PHASE}/config:/app/config -v /etc/letsencrypt:/app/certs -v /applog/tmpdir-fileupload-${ENV_PHASE}:/applog -v /db/tmpdir-${ENV_PHASE}/storage:/storage --name ${IMAGE_NAME}-${ENV_PHASE} ${REGISTRY_HOST}/${IMAGE_NAME}\""
-			}
 
 			stage "Performance testing"
-			gitlabCommitStatus("Performance testing") {
 				STAGE = "Performance testing"
-			}
-			
 		}
 
 		if(env.BRANCH_NAME == MASTER_BRANCH){
 			stage "Deploy on product"
-			gitlabCommitStatus("Deploy on product") {
 				STAGE = "Deploy on product"
 				sh "sshpass -p '0)8*WESehzj' ssh -T -oStrictHostKeyChecking=no -p 22000 docker@dev.sw-warehouse.xyz \"docker rm -f ${IMAGE_NAME}-${ENV_PHASE} 2> /dev/null | echo ok && docker login -u ${REGISTRY_USER} -p ${REGISTRY_PASSWORD} ${REGISTRY_HOST} && docker pull ${REGISTRY_HOST}/${IMAGE_NAME} && docker run -d --network=tmpdir-${ENV_PHASE}-net -e ENV_PHASE='${ENV_PHASE}' -v /app/tmpdir-fileupload-${ENV_PHASE}/config:/app/config -v /etc/letsencrypt:/app/certs -v /applog/tmpdir-fileupload-${ENV_PHASE}:/applog -v /db/tmpdir-${ENV_PHASE}/storage:/storage --name ${IMAGE_NAME}-${ENV_PHASE} ${REGISTRY_HOST}/${IMAGE_NAME}\""
-			}
 		}
 	} catch (e) {
 		currentBuild.result = "FAILED"
