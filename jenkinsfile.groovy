@@ -25,7 +25,7 @@ node {
 			stage "Unit testing"
 				STAGE = "Unit testing"
 				sh "./gradlew clean check"
-				junit "build/test-results/test/TEST-*.xml"
+				junit "./build/test-results/test/TEST-*.xml"
 
 			stage "Sonarqube"
 				STAGE = "Sonarqube"
