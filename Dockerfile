@@ -6,7 +6,7 @@ ENV PACKAGE_VERSION ${PACKAGE_VERSION}
 
 COPY build/libs/${PACKAGE_NAME}-${PACKAGE_VERSION}.jar /
 COPY src/main/resources/*.properties /
-COPY script/docker-entrypoint.sh /
+COPY script/docker/docker-entrypoint.sh /
 RUN mkdir -p /app/bin /app/config /applog /storage \
 	&& mv /${PACKAGE_NAME}-${PACKAGE_VERSION}.jar /app/bin/ \
 	&& chmod +x /docker-entrypoint.sh

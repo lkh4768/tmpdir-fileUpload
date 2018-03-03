@@ -54,6 +54,7 @@ node {
 
 			stage "Performance testing"
 				STAGE = "Performance testing"
+        sh "mkdir -p ./build/jmeter && java -jar ./third-party/ApacheJMeter.jar -n -t ./performanc_test.jmx -l ./build/jmeter/preformance_test_report.jtl"
 		}
 
 		if(env.BRANCH_NAME == MASTER_BRANCH){
