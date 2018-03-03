@@ -54,7 +54,12 @@ node {
 
 			stage "Performance testing"
 				STAGE = "Performance testing"
-        sh "mkdir -p ./build/jmeter && java -jar /var/jenkins_home/third-party/apache-jmeter-4.0/bin/ApacheJMeter.jar -n -t ./performanc_test.jmx -l ./build/jmeter/preformance_test_report.jtl"
+        sh "ls -al /var/jenkins_home/"
+        sh "ls -al /var/jenkins_home/thrid-party/"
+        sh "ls -al /var/jenkins_home/thrid-party/apache-jmeter-4.0/"
+        sh "ls -al /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/"
+
+        sh "mkdir -p ./build/jmeter && java -jar /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/ApacheJMeter.jar -n -t ./performanc_test.jmx -l ./build/jmeter/preformance_test_report.jtl"
         step([$class: 'ArtifactArchiver', artifacts: './build/jmeter/performance_test_report.jtl'])
 		}
 
