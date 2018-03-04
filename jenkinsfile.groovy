@@ -57,7 +57,8 @@ node {
         sh "ls -al /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/"
 
         sh "mkdir -p ./build/jmeter && java -jar /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/ApacheJMeter.jar -n -t ./script/jmeter/performance_test.jmx -l ./build/jmeter/preformance_test_report.jtl"
-        step([$class: 'ArtifactArchiver', artifacts: './build/jmeter/performance_test_report.jtl'])
+        sh "ls -al ./build/jmeter/"
+        step([$class: 'ArtifactArchiver', artifacts: './build/jmeter/*.jtl'])
 		}
 
 		if(env.BRANCH_NAME == MASTER_BRANCH){
