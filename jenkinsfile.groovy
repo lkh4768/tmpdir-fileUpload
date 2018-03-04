@@ -79,7 +79,6 @@ def notifyBuild(String buildStatus = 'STARTED', String stage = '') {
   def colorName = 'RED'
   def colorCode = '#FF0000'
   def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-  if(stage != '' && buildStatus == 'FAILED') subject += ", Stage '${stage}'"
   def summary = "${subject} (${env.BUILD_URL})"
 
   if (buildStatus == 'STARTED') {
