@@ -57,6 +57,7 @@ node {
         sh "ls -al /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/"
         sh "mkdir -p ./build/jmeter && /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/jmeter -n -t config/jmeter/performance_test.jmx -p config/jmeter/tmpdir.properties -l build/jmeter/preformance_test_report.jtl"
         sh "ls -al ./build/jmeter/"
+				perfReport 'build/jmeter/*.jtl'
 				performanceReport parsers: [[$class: 'JMeterParser', glob: 'build/jmeter/*.xml']], relativeFailedThresholdNegative: 1.2, relativeFailedThresholdPositive: 1.89, relativeUnstableThresholdNegative: 1.8, relativeUnstableThresholdPositive: 1.5
 		}
 
