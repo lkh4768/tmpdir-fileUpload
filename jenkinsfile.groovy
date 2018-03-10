@@ -55,8 +55,7 @@ node {
 			stage "Performance testing"
 				STAGE = "Performance testing"
         sh "ls -al /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/"
-
-        sh "mkdir -p ./build/jmeter && java -jar /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/ApacheJMeter.jar -n -t ./script/jmeter/performance_test.jmx -l ./build/jmeter/preformance_test_report.jtl"
+        sh "mkdir -p ./build/jmeter && /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/jmeter -n -t config/jmeter/performance_test.jmx -p script/jmeter/tmpdir.properties -l build/jmeter/preformance_test_report.jtl"
         sh "ls -al ./build/jmeter/"
         step([$class: 'ArtifactArchiver', artifacts: './build/jmeter/*.jtl'])
 		}
@@ -80,6 +79,7 @@ def notifyBuild(String buildStatus = 'STARTED', String stage = '') {
   def colorName = 'RED'
   def colorCode = '#FF0000'
   def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  if(stage != '' && buildStatus == 'FAILED') subject += ", Stage '${stage}'"
   def summary = "${subject} (${env.BUILD_URL})"
 
   if (buildStatus == 'STARTED') {
