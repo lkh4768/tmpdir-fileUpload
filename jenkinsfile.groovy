@@ -54,6 +54,7 @@ node {
 
 			stage "Performance testing"
 				STAGE = "Performance testing"
+				sleep 30
         sh "mkdir -p ./build/jmeter && /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/jmeter -n -t config/jmeter/performance_test.jmx -p config/jmeter/tmpdir.properties -l build/jmeter/preformance_test_report.jtl"
 				sh "cat jmeter.log"
 				perfReport 'build/jmeter/*.jtl', 'build/jmeter/*.xml'
