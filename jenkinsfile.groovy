@@ -54,10 +54,9 @@ node {
 
 			stage "Performance testing"
 				STAGE = "Performance testing"
-        sh "ls -al /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/"
         sh "mkdir -p ./build/jmeter && /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/jmeter -n -t config/jmeter/performance_test.jmx -p config/jmeter/tmpdir.properties -l build/jmeter/preformance_test_report.jtl"
-        sh "ls -al ./build/jmeter/"
-				perfReport 'build/jmeter/*.jtl, build/jmeter/*.xml'
+				sh "cat jmeter.log"
+				perfReport 'build/jmeter/*.jtl', 'build/jmeter/*.xml'
 		}
 
 		if(env.BRANCH_NAME == MASTER_BRANCH){
