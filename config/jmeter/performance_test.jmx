@@ -111,7 +111,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${__property(listener.summary_report.path)}</stringProp>
+          <stringProp name="filename">${__property(listener.results.path)}</stringProp>
         </ResultCollector>
         <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
@@ -151,7 +151,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${__property(listener.view_results_tree.path)}</stringProp>
+          <stringProp name="filename">${__property(listener.results.path)}</stringProp>
         </ResultCollector>
         <hashTree/>
         <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
@@ -191,7 +191,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${__property(listener.view_results_in_table.path)}</stringProp>
+          <stringProp name="filename">${__property(listener.results.path)}</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
