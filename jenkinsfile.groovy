@@ -55,7 +55,11 @@ node {
 			stage "Performance testing"
 				STAGE = "Performance testing"
 				sleep 30
-        sh "mkdir -p ./build/jmeter && /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/jmeter -n -t config/jmeter/performance_test.jmx -p config/jmeter/tmpdir.properties -l build/jmeter/preformance_test_report.jtl"
+        sh "mkdir -p ./build/jmeter && /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/jmeter -n -t config/jmeter/performance_test.jmx -p config/jmeter/tmpdir.properties -l build/jmeter/preformance_test_report_mb.jtl -Jsampler.file=data/test/mb.txt -Jlistener.summary_report.path=build/jmeter/summary_report_mb.xml -Jlistener.view_results_tree.path=build/jmeter/view_results_tree_mb.xml -Jlistener.view_results_in_table.path=build/jmeter/view_results_in_table_mb.xml"
+        sh "chmod +x ./script/util/make-10mb-file.sh && script/util/make-10mb-file.sh"
+				sh "mkdir -p ./build/jmeter && /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/jmeter -n -t config/jmeter/performance_test.jmx -p config/jmeter/tmpdir.properties -l build/jmeter/preformance_test_report_10mb.jtl -Jsampler.file=data/test/10mb.txt -Jlistener.summary_report.path=build/jmeter/summary_report_10mb.xml -Jlistener.view_results_tree.path=build/jmeter/view_results_tree_10mb.xml -Jlistener.view_results_in_table.path=build/jmeter/view_results_in_table_10mb.xml"
+        sh "chmod +x ./script/util/make-gb-file.sh && script/util/make-gb-file.sh"
+				sh "mkdir -p ./build/jmeter && /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/jmeter -n -t config/jmeter/performance_test.jmx -p config/jmeter/tmpdir.properties -l build/jmeter/preformance_test_report_gb.jtl"
 				perfReport 'build/jmeter/*.jtl'
 				step([$class: 'ArtifactArchiver', artifacts: 'build/jmeter/*.xml', fingerprint: true])
 		}
