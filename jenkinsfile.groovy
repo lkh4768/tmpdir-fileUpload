@@ -56,7 +56,8 @@ node {
 				STAGE = "Performance testing"
 				sleep 30
         sh "mkdir -p ./build/jmeter && /var/jenkins_home/thrid-party/apache-jmeter-4.0/bin/jmeter -n -t config/jmeter/performance_test.jmx -p config/jmeter/tmpdir.properties -l build/jmeter/preformance_test_report.jtl"
-				perfReport 'build/jmeter/*.xml, build/jmeter/*.jtl'
+				perfReport 'build/jmeter/*.jtl'
+				step([$class: 'ArtifactArchiver', artifacts: 'build/jmeter/*.xml', fingerprint: true])
 		}
 
 		if(env.BRANCH_NAME == MASTER_BRANCH){
