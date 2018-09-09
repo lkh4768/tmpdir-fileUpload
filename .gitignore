@@ -36,3 +36,6 @@ goorm.manifest
 ## node ##
 node_modules
 package-lock.json
+
+## reports ##
+reports
