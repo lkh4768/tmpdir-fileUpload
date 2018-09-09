@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  name: 'tmpdir-fileupload-dev',
+  name: 'tmpdir-fileupload-test',
   server: {
     port: 6000,
   },
@@ -9,7 +9,7 @@ module.exports = {
     file: {
       expireTermDay: 1,
       maxSize: 1000 * 1000 * 1000,
-      root: path.resolve(__dirname, '../../storage'),
+      root: path.resolve(__dirname, '../../../storage'),
     },
   },
   db: {
@@ -18,8 +18,8 @@ module.exports = {
     password: '10dlatlwjwkdth',
   },
   log: {
-    path: path.resolve(__dirname, '../../logs'),
-    filename: 'tmpdir-fileupload-dev',
+    path: path.resolve(__dirname, '../../../logs'),
+    filename: 'tmpdir-fileupload-test',
     level: 'debug',
     fileDateFormat: '%Y%m%d%H',
   },

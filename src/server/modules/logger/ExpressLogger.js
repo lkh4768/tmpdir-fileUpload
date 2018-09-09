@@ -4,7 +4,11 @@ import LoggerUtils from './Utils';
 
 const ExpressLogger = {
   create: (app) => {
-    app.use(expressBunyanLogger(LoggerUtils.stream || null));
+    app.use(expressBunyanLogger({
+      streams: [{
+        stream: LoggerUtils.stream || null
+      }]
+    }));
   },
 };
 

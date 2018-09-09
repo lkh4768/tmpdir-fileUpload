@@ -11,4 +11,6 @@ ConsoleLogger.info(Config, 'config');
 ExpressLoggerFactory.create(app);
 
 app.use('/api', apiRoutes);
-app.listen(Config.get('server.port'));
+export const server = app.listen(Config.get('server.port'));
+
+export default app;
