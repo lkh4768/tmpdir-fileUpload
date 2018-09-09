@@ -29,3 +29,6 @@ nbdist/
 
 ### Jmeter ###
 **/jmeter.log
+
+### goorm ide ###
+goorm.manifest
