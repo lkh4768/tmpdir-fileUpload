@@ -3,10 +3,11 @@ import expressBunyanLogger from 'express-bunyan-logger';
 import LoggerUtils from './Utils';
 
 const ExpressLogger = {
-  create: (app) => {
+  use: (app) => {
     app.use(expressBunyanLogger({
       streams: [{
-        stream: LoggerUtils.stream || null
+        level: LoggerUtils.level.express,
+        stream: LoggerUtils.stream || null,
       }]
     }));
   },

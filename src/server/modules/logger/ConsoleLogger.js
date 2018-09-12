@@ -12,7 +12,7 @@ class ConsoleLogger {
   makeConfig() {
     this.config = {
       name: LoggerUtils.appName,
-      level: LoggerUtils.level,
+      level: LoggerUtils.level.console,
       src: true,
     };
 

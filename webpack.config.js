@@ -46,13 +46,11 @@ const config = {
     ],
   },
   plugins: [
-    new CopyWebpackPlugin([
-    {
-      from: path.resolve(__dirname, 'src/server/config'),
-      to: path.resolve(__dirname, 'build/config'),
-      toType: 'dir'
-    },
-  ])
+    new CopyWebpackPlugin([{
+      from: path.resolve(__dirname, `src/server/config/${mode}.js`),
+      to: path.resolve(__dirname, `build/config/${mode}.js`),
+      toType: 'file'
+    }]),
   ],
 };
 

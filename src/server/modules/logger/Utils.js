@@ -13,7 +13,10 @@ const LoggerUtils = {
   filename: logConfig.filename,
   fileDateFormat: logConfig.fileDateFormat,
   appName: config.get('name') || Const.defaultLoggerConfig.name,
-  level: logConfig.level || Const.defaultLoggerConfig.level,
+  level: {
+    console: logConfig.level.console || Const.defaultLoggerConfig.level,
+    express: logConfig.level.express || Const.defaultLoggerConfig.level,
+  },
   hasConfigForStream: f => f,
 };
 
@@ -33,6 +36,8 @@ const makeStream = () => {
   });
 };
 
-LoggerUtils.stream = makeStream();
+if (LoggerUtils.hasConfigForStream()) {
+  LoggerUtils.stream = makeStream();
+}
 
 export default LoggerUtils;

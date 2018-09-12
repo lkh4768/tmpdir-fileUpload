@@ -20,7 +20,10 @@ module.exports = {
   log: {
     path: path.resolve(__dirname, '../../logs'),
     filename: 'tmpdir-fileupload-dev',
-    level: 'debug',
+    level: {
+      console: 'debug',
+      express: 'info',
+    },
     fileDateFormat: '%Y%m%d%H',
   },
 };
