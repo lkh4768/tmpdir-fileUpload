@@ -28,7 +28,7 @@ describe('file', () => {
         expect(typeof res.body.id === 'string').toEqual(true);
         expect(res.body.submissionTime).toBeGreaterThanOrEqual(beforeSendTime);
         expect(res.body.submissionTime).toBeLessThanOrEqual(afterSendTime);
-        expect(res.body.expireTime).toEqual(res.body.submissionTime + Config.get('tmpdir.file.expireTermDay'));
+        expect(res.body.expireTime).toEqual(__convertSubmissionTimeToExpireTime__(res.body.submissionTime).getTime());
         done();
     });
   });

@@ -24,6 +24,7 @@ module.exports = {
   moduleNameMapper: {
     '^_routes/(.*)$': '<rootDir>/src/server/routes/$1',
     '^_modules/(.*)$': '<rootDir>/src/server/modules/$1',
+    '^_models/(.*)$': '<rootDir>/src/server/models/$1',
   },
   coverageDirectory: '<rootDir>/reports/coverage',
   reporters: ['default', 'jest-junit'],

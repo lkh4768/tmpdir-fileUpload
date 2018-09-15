@@ -1,11 +1,11 @@
 import express from 'express';
-import uuidv1 from 'uuid/v1';
 import multer from 'multer';
 import Config from 'config';
 import path from 'path';
 
 import ConsoleLogger from '_modules/logger';
 import file from '_modules/file';
+import fileInfo from '_models/fileInfo';
 
 const router = express.Router();
 const upload = multer({
@@ -15,10 +15,9 @@ const upload = multer({
 
 router.post('/', upload.array('file'), async (req, res) => {
   ConsoleLogger.info(req.files, 'Recv files');
-  const id = uuidv1();
-  const currentDate = (new Date()).getTime();
-  file.store(req.files, id);
-  res.json({ id, submissionTime: currentDate, expireTime: currentDate+1 });
+  const newFileInfo = fileInfo.create();
+  file.store(req.files, newFileInfo.id);
+  res.json(newFileInfo);
 });
 
 export default router;

@@ -29,6 +29,7 @@ const config = {
     alias: {
       _modules: path.resolve(__dirname, 'src/server/modules/'),
       _routes: path.resolve(__dirname, 'src/server/routes/'),
+      _models: path.resolve(__dirname, 'src/server/models/'),
     },
   },
   module: {
