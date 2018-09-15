@@ -18,8 +18,6 @@ const initMongo = async () => {
   let ret = false;
   try {
     await mongoose.connect(`${Config.get('db.url')}`, {
-      user: Config.get('db.username'),
-      pass: Config.get('db.password'),
       useNewUrlParser: true,
     });
     ret = true;
@@ -27,10 +25,8 @@ const initMongo = async () => {
   } catch (err) {
     ConsoleLogger.error(
       err,
-      'db(%s, { user: %s, pass: %s }) connect failed',
+      'db(%s) connect failed',
       Config.get('db.url'),
-      Config.get('db.username'),
-      Config.get('db.password'),
     );
   }
   return ret;

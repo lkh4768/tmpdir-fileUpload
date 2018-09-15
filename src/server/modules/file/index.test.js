@@ -24,14 +24,13 @@ const uploadedFiles = [
 let connection;
 
 beforeAll(async () => {
-  connection = await mongoose.connect(global.__MONGO_URI__, {
-    dbName: global.__MONGO_DB_NAME__,
+  connection = await mongoose.connect(Config.get('db.url'), {
     useNewUrlParser: true,
   });
 });
 
 afterAll(async () => {
-  connection.disconnect();
+  await connection.disconnect();
 });
 
 describe('file', () => {

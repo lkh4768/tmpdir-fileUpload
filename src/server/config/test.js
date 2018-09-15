@@ -14,8 +14,6 @@ module.exports = {
   },
   db: {
     url: 'mongodb://dev.sw-warehouse.xyz:7017/TMP_DIR',
-    username: 'tmpdir',
-    password: '10dlatlwjwkdth',
   },
   log: {
     path: path.resolve(__dirname, '../../../logs'),
