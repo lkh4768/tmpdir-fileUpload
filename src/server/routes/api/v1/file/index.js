@@ -13,6 +13,10 @@ const upload = multer({
 });
 
 router.post('/', upload.array('file'), async (req, res) => {
+  if(!req.files) {
+    ConsoleLogger.error('Not found files');
+    return res.status(400).send('Not found files').end();
+  }
   ConsoleLogger.info('Recv files', req.files);
   const fileInfoEntity = fileInfo.createEntity();
   file.store(req.files, fileInfoEntity.id);

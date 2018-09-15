@@ -33,25 +33,19 @@ describe('file', () => {
         done();
     });
   });
-  test('[router] POST /api/v1/file, empty file', (done) => {
+
+  test('[router] POST /api/v1/file, Empty file', (done) => {
     const fileRootPath = Config.get('tmpdir.file.root');
     rimraf.sync(`${fileRootPath}/*`);
     const beforeSendTime = (new Date()).getTime();
     request(app)
       .post('/api/v1/file')
-      .attach('file', '')
-      .expect(200)
+      .expect(400)
       .end((err, res) => {
         if(err) {
           return done(err);
         }
-
-        // check fileInfo
-        const afterSendTime = (new Date()).getTime();
-        expect(typeof res.body.id === 'string').toEqual(true);
-        expect(res.body.submissionTime).toBeGreaterThanOrEqual(beforeSendTime);
-        expect(res.body.submissionTime).toBeLessThanOrEqual(afterSendTime);
-        expect(res.body.expireTime).toEqual(__convertSubmissionTimeToExpireTime__(res.body.submissionTime).getTime());
+        expect(res.text).toEqual('Not found files');
         done();
     });
   });
