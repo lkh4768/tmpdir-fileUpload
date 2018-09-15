@@ -1,7 +1,6 @@
 import express from 'express';
 import multer from 'multer';
 import Config from 'config';
-import path from 'path';
 
 import ConsoleLogger from '_modules/logger';
 import file from '_modules/file';
@@ -14,10 +13,14 @@ const upload = multer({
 });
 
 router.post('/', upload.array('file'), async (req, res) => {
-  ConsoleLogger.info(req.files, 'Recv files');
-  const newFileInfo = fileInfo.create();
-  file.store(req.files, newFileInfo.id);
-  res.json(newFileInfo);
+  ConsoleLogger.info('Recv files', req.files);
+  const fileInfoEntity = fileInfo.createEntity();
+  file.store(req.files, fileInfoEntity.id);
+  const ret = await file.saveInRepo(fileInfoEntity);
+  if (!ret.result) {
+    return res.sendStatus(500).end();
+  }
+  return res.json(fileInfoEntity).end();
 });
 
 export default router;

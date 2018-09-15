@@ -3,8 +3,10 @@ import fs from 'fs';
 import rimraf from 'rimraf';
 import uuidv1 from 'uuid/v1';
 import Config from 'config';
+import mongoose from 'mongoose';
 
 import file from './index.js';
+import fileInfo from '_models/fileInfo';
 
 const uploadedFiles = [
 	{
@@ -18,6 +20,19 @@ const uploadedFiles = [
     size: 1000000,
   },
 ];
+
+let connection;
+
+beforeAll(async () => {
+  connection = await mongoose.connect(global.__MONGO_URI__, {
+    dbName: global.__MONGO_DB_NAME__,
+    useNewUrlParser: true,
+  });
+});
+
+afterAll(async () => {
+  connection.disconnect();
+});
 
 describe('file', () => {
   test('store, Success', async () => {
@@ -33,5 +48,15 @@ describe('file', () => {
 
     expect(childFiles.length).toEqual(1);
     expect(childFiles[0]).toEqual(uploadedFiles[0].originalname);
+  });
+
+  test('saveInRepo, Success', async () => {
+    const newFileInfo = fileInfo.createEntity();
+    const ret = await file.saveInRepo(newFileInfo);
+    expect(ret.result).toEqual(true);
+
+    expect(ret.data.id).toEqual(newFileInfo.id);
+    expect(ret.data.submissionTime.getTime()).toEqual(newFileInfo.submissionTime);
+    expect(ret.data.expireTime.getTime()).toEqual(newFileInfo.expireTime);
   });
 });

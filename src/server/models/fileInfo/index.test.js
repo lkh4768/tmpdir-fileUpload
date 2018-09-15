@@ -3,9 +3,9 @@ import Config from 'config';
 import fileInfo from './index.js';
 
 describe('fileInfo', () => {
-  test('create, Success', async () => {
+  test('createEntity, Success', async () => {
     const beforeCreateTime = (new Date()).getTime();
-    const newFileInfo = fileInfo.create();
+    const newFileInfo = fileInfo.createEntity();
     const afterCreateTime = (new Date()).getTime();
 
     expect(typeof newFileInfo.id).toEqual('string');

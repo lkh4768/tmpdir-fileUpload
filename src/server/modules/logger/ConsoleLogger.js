@@ -7,6 +7,12 @@ class ConsoleLogger {
     this.config = null;
     this.makeConfig();
     this.logger = bunyan.createLogger(this.config);
+    this.fatal = this.logger.fatal.bind(this.logger);
+    this.error = this.logger.error.bind(this.logger);
+    this.warn = this.logger.warn.bind(this.logger);
+    this.info = this.logger.info.bind(this.logger);
+    this.debug = this.logger.debug.bind(this.logger);
+    this.trace = this.logger.trace.bind(this.logger);
   }
 
   makeConfig() {
@@ -19,30 +25,6 @@ class ConsoleLogger {
     if (LoggerUtils.stream) {
       this.config.streams = [{ stream: LoggerUtils.stream }];
     }
-  }
-
-  fatal(...arg) {
-    this.logger.fatal(...arg);
-  }
-
-  error(...arg) {
-    this.logger.error(...arg);
-  }
-
-  warn(...arg) {
-    this.logger.warn(...arg);
-  }
-
-  info(...arg) {
-    this.logger.info(...arg);
-  }
-
-  debug(...arg) {
-    this.logger.debug(...arg);
-  }
-
-  trace(...arg) {
-    this.logger.trace(...arg);
   }
 }
 

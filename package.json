@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test NODE_CONFIG_DIR=./src/server/config jest --config=src/test/config.js",
+    "test": "NODE_ENV=test NODE_CONFIG_DIR=./src/server/config jest --config=src/test/config.js --detectOpenHandles",
     "clean": "rm -rf build",
     "start:dev": "NODE_ENV=development NODE_CONFIG_DIR=./build/config node build/index.js",
     "build:dev": "NODE_ENV=development webpack --config webpack.config.js --progress --profile --colors",
@@ -48,6 +48,7 @@
     "eslint-plugin-react": "~7.11.1",
     "jest": "^23.5.0",
     "jest-junit": "^5.1.0",
+    "mongodb-memory-server": "^2.2.0",
     "supertest": "^3.3.0",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0",

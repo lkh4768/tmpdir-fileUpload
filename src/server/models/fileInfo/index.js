@@ -9,7 +9,7 @@ const fileInfoSchema = new mongoose.Schema({
 
 const FileInfo = mongoose.model('FileInfo', fileInfoSchema);
 
-const create = () => {
+const createEntity = () => {
   const submissionTime = new Date();
   const expireTime = new Date(submissionTime);
   expireTime.setDate(expireTime.getDate() + 1);
@@ -23,5 +23,5 @@ const create = () => {
 
 export default {
   FileInfo,
-  create,
+  createEntity,
 };

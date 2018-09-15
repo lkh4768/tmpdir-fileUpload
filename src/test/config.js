@@ -20,6 +20,7 @@ module.exports = {
   setupFiles: ['<rootDir>/src/test/global.js'],
   globalSetup: '<rootDir>/src/test/setup.js',
   globalTeardown: '<rootDir>/src/test/teardown.js',
+  testEnvironment: '<rootDir>/src/test/mongo-environment.js',
   modulePathIgnorePatterns: ['setup.js', 'teardown.js', 'config/test.js'],
   moduleNameMapper: {
     '^_routes/(.*)$': '<rootDir>/src/server/routes/$1',

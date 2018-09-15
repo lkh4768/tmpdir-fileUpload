@@ -8,7 +8,7 @@ const ExpressLogger = {
       streams: [{
         level: LoggerUtils.level.express,
         stream: LoggerUtils.stream || null,
-      }]
+      }],
     }));
   },
 };

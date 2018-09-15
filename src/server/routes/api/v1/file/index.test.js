@@ -3,7 +3,7 @@ import Config from 'config';
 import rimraf from 'rimraf';
 import fs from 'fs';
 import path from 'path';
-import app, { server } from '../../../../index.js';
+import { app, server } from '../../../../index.js';
 
 afterAll((done) => {
   server.close(done);
