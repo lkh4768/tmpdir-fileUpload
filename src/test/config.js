@@ -3,6 +3,11 @@ const path = require('path');
 module.exports = {
   rootDir: path.join(__dirname, '../../'),
   verbose: true,
+  globals: {
+    __root__: path.join(__dirname, '../../'),
+    __testFilename__: 'mb.txt',
+    __testFilePath__: path.join(__dirname, '../../data/test/mb.txt'),
+  },
   transform: {
     '^.+\\.js$': 'babel-jest'
   },

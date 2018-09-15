@@ -23,10 +23,6 @@ describe('file', () => {
           return done(err);
         }
 
-        // check file
-        const listInRoot = fs.readdirSync(path.join(fileRootPath, res.body.id));
-        expect(listInRoot.length).toEqual(1);
-
         // check fileInfo
         const afterSendTime = (new Date()).getTime();
         expect(typeof res.body.id === 'string').toEqual(true);
