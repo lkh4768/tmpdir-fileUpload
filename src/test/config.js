@@ -15,7 +15,7 @@ module.exports = {
     'global.js',
     '<rootDir>/src/test/setup.js',
     '<rootDir>/src/test/teardown.js',
-    '<rootDir>/src/config/test.js'
+    'src/server/config/test.js'
   ],
   moduleFileExtensions: ['js'],
   setupFiles: ['<rootDir>/src/test/global.js'],

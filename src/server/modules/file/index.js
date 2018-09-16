@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import rimraf from 'rimraf';
+import rmfr from 'rmfr';
 import Config from 'config';
 
 import ConsoleLogger from '_modules/logger';
@@ -15,35 +15,40 @@ const store = async (uploadedFiles, fileId) => {
     ConsoleLogger.info('mkdir(%s) success', root);
   } catch (err) {
     ConsoleLogger.error('mkdir(%s) failed', root, err);
-    return false;
+    return { result: false };
   }
 
-  Promise.all(uploadedFiles.map(async (file) => {
+  const rets = await Promise.all(uploadedFiles.map(async (file) => {
+    const destPath = path.join(root, file.originalname);
+    const srcPath = file.path;
     try {
-      await fsPromises.copyFile(file.path, path.join(root, file.originalname));
-      ConsoleLogger.info(
-        'copyFile({ src: %s, dest: %s }) success',
-        file.path,
-        path.join(root, file.originalname),
-      );
+      await fsPromises.copyFile(srcPath, destPath);
     } catch (err) {
       ConsoleLogger.error(
         'copyFile({ src: %s, dest: %s }) failed',
-        file.path,
-        path.join(root, file.originalname),
+        srcPath,
+        destPath,
         err,
       );
+      return { result: false, path: destPath };
     }
+    ConsoleLogger.info(
+      'copyFile({ src: %s, dest: %s }) success',
+      srcPath,
+      destPath,
+    );
 
-    rimraf(file.path, (err) => {
-      if (err) {
-        ConsoleLogger.error('rm -rf %s failed', file.path, err);
-      }
-      ConsoleLogger.info('rm -rf %s success', file.path);
-    });
+    try {
+      await rmfr(srcPath);
+    } catch(err) {
+      ConsoleLogger.error('rm -rf %s failed', srcPath, err);
+      return { result: false, path: destPath };
+    }
+    ConsoleLogger.info('rm -rf %s success', srcPath);
+    return { result: true, path: destPath };
   }));
 
-  return true;
+  return { result: rets.every(ret => ret.result === true), data: rets };
 };
 
 const saveInRepo = async (fileInfoEntity) => {

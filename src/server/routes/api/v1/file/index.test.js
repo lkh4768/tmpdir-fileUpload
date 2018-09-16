@@ -2,6 +2,7 @@ import request from 'supertest';
 import Config from 'config';
 import rimraf from 'rimraf';
 
+import file from '_modules/file';
 import { app, server } from '../../../../index.js';
 
 afterAll((done) => {
@@ -22,7 +23,6 @@ describe('file', () => {
           return done(err);
         }
 
-        // check fileInfo
         const afterSendTime = (new Date()).getTime();
         expect(typeof res.body.id === 'string').toEqual(true);
         expect(res.body.submissionTime).toBeGreaterThanOrEqual(beforeSendTime);
@@ -43,6 +43,25 @@ describe('file', () => {
           return done(err);
         }
         expect(res.text).toEqual('Not found files');
+        return done();
+    });
+  });
+
+  test('[router] POST /api/v1/file, save fileInfo in repo failed', (done) => {
+    const fileRootPath = Config.get('tmpdir.file.root');
+    rimraf.sync(`${fileRootPath}/*`);
+
+    file.saveInRepo = jest.fn();
+    file.saveInRepo.mockResolvedValue({ result: false });
+
+    request(app)
+      .post('/api/v1/file')
+      .attach('file', '/home/wes/storage/workspace/tmpdir-fileUpload/data/test/mb.txt')
+      .expect(500)
+      .end((err, res) => {
+        if(err) {
+          return done(err);
+        }
         return done();
     });
   });
