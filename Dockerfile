@@ -8,7 +8,7 @@ COPY script/docker/docker-entrypoint.sh /
 RUN mkdir -p /app/build/config /applog /storage \
 	&& mv /index.js /app/build \
   && mv /node_modules /app/ \
-  && mv /package.json /app/
+  && mv /package.json /app/ \
   && chmod +x /docker-entrypoint.sh
 
 VOLUME ["/app/build/config", "/applog", "/storage"]
