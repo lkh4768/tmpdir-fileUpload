@@ -9,14 +9,14 @@ module.exports = {
     file: {
       expireTermDay: 1,
       maxSize: 1000 * 1000 * 1000,
-      root: path.resolve(__dirname, '../../storage'),
+      root: path.resolve('/storage/'),
     },
   },
   db: {
     url: 'mongodb://tmpdir:09WESdlatlwjwkdth@tmpdir-mongo-stage:27017/TMP_DIR',
   },
   log: {
-    path: path.resolve(__dirname, '../../logs'),
+    path: path.resolve('/applog/'),
     filename: 'tmpdir-fileupload-stage',
     level: {
       console: 'debug',
