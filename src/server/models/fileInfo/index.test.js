@@ -1,5 +1,3 @@
-import Config from 'config';
-
 import fileInfo from './index.js';
 
 describe('fileInfo', () => {

@@ -14,13 +14,13 @@ module.exports = {
   modulePathIgnorePatterns: [
     'global.js',
     '<rootDir>/src/test/setup.js',
-    '<rootDir>/src/test/teardown.js'
+    '<rootDir>/src/test/teardown.js',
+    '<rootDir>/src/config/test.js'
   ],
   moduleFileExtensions: ['js'],
   setupFiles: ['<rootDir>/src/test/global.js'],
   globalSetup: '<rootDir>/src/test/setup.js',
   globalTeardown: '<rootDir>/src/test/teardown.js',
-  modulePathIgnorePatterns: ['setup.js', 'teardown.js', 'config/test.js'],
   moduleNameMapper: {
     '^_routes/(.*)$': '<rootDir>/src/server/routes/$1',
     '^_modules/(.*)$': '<rootDir>/src/server/modules/$1',

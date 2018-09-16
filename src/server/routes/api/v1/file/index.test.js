@@ -1,8 +1,6 @@
 import request from 'supertest';
 import Config from 'config';
 import rimraf from 'rimraf';
-import fs from 'fs';
-import path from 'path';
 
 import { app, server } from '../../../../index.js';
 
@@ -30,14 +28,13 @@ describe('file', () => {
         expect(res.body.submissionTime).toBeGreaterThanOrEqual(beforeSendTime);
         expect(res.body.submissionTime).toBeLessThanOrEqual(afterSendTime);
         expect(res.body.expireTime).toEqual(__convertSubmissionTimeToExpireTime__(res.body.submissionTime).getTime());
-        done();
+        return done();
     });
   });
 
   test('[router] POST /api/v1/file, Empty file', (done) => {
     const fileRootPath = Config.get('tmpdir.file.root');
     rimraf.sync(`${fileRootPath}/*`);
-    const beforeSendTime = (new Date()).getTime();
     request(app)
       .post('/api/v1/file')
       .expect(400)
@@ -46,7 +43,7 @@ describe('file', () => {
           return done(err);
         }
         expect(res.text).toEqual('Not found files');
-        done();
+        return done();
     });
   });
 });

@@ -1,6 +1,6 @@
 import bunyan from 'bunyan';
 
-import LoggerUtils from './Utils';
+import LoggerUtils from './LoggerUtils';
 
 class ConsoleLogger {
   constructor() {

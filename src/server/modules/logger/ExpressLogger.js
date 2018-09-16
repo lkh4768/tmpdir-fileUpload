@@ -1,6 +1,6 @@
 import expressBunyanLogger from 'express-bunyan-logger';
 
-import LoggerUtils from './Utils';
+import LoggerUtils from './LoggerUtils';
 
 const ExpressLogger = {
   use: (app) => {

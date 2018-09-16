@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test NODE_CONFIG_DIR=./src/server/config jest --config=src/test/config.js --detectOpenHandles",
+    "test:coverage": "NODE_ENV=test NODE_CONFIG_DIR=./src/server/config jest --config=src/test/config.js --coverage",
     "clean": "rm -rf build",
     "start:dev": "NODE_ENV=development NODE_CONFIG_DIR=./build/config node build/index.js",
     "build:dev": "NODE_ENV=development webpack --config webpack.config.js --progress --profile --colors",
