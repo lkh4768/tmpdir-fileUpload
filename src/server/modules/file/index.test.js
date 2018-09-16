@@ -39,6 +39,11 @@ afterAll(async () => {
 
 beforeEach(async () => {
   await jest.resetAllMocks();
+  try {
+    await fsPromises.access(Config.get('tmpdir.file.root'));
+  } catch (err) {
+    await fsPromises.mkdir(Config.get('tmpdir.file.root'));
+  }
   fs.copyFileSync(__testFilePath__, uploadedFiles[0].path);
   await rmfr(newFileDir);
 });

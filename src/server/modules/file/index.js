@@ -9,6 +9,18 @@ import fileInfo from '_models/fileInfo';
 const fsPromises = fs.promises;
 
 const store = async (uploadedFiles, fileId) => {
+  try {
+    await fsPromises.access(Config.get('tmpdir.file.root'));
+  } catch (err) {
+    try {
+      await fsPromises.mkdir(Config.get('tmpdir.file.root'));
+      ConsoleLogger.info('mkdir(%s) success', Config.get('tmpdir.file.root'));
+    } catch (err) {
+      ConsoleLogger.error('mkdir(%s) failed', Config.get('tmpdir.file.root'), err);
+      return { result: false };
+    }
+  }
+
   const root = path.join(Config.get('tmpdir.file.root'), fileId);
   try {
     await fsPromises.mkdir(root);
