@@ -7,10 +7,8 @@ node {
       checkout scm
       DEVELOP_BRANCH = "develop"
       MASTER_BRANCH = "master"
-      PACKAGE_NAME_LOW = sh (script: "cat package.json | grep name | head -1 | awk -F: '{ print \$2 }' | sed 's/[\",]//g' | sed 's/ //g' | sed -e 's/./\\L\\0/g'", returnStdout: true)
-      PACKAGE_VERSION = sh (script: "cat package.json | grep version | head -1 | awk -F: '{ print \$2 }' | sed 's/ //g' | sed 's/[\",]//g'", returnStdout: true)
-      PACKAGE_NAME_LOW = PACKAGE_NAME_LOW.trim()
-      PACKAGE_VERSION = PACKAGE_VERSION.trim()
+      PACKAGE_NAME_LOW = sh (script: "cat package.json | grep name | head -1 | awk -F: '{ print \$2 }' | sed 's/[\",]//g' | sed 's/ //g' | sed -e 's/./\\L\\0/g'", returnStdout: true).trim()
+      PACKAGE_VERSION = sh (script: "cat package.json | grep version | head -1 | awk -F: '{ print \$2 }' | sed 's/ //g' | sed 's/[\",]//g'", returnStdout: true).trim()
       IMAGE_NAME = "${PACKAGE_NAME_LOW}-${PACKAGE_VERSION}"
       REGISTRY_HOST = "dev.sw-warehouse.xyz:1450"
       REGISTRY_USER = "root"
@@ -80,12 +78,12 @@ node {
   }
 }
 
-def notifyBuild(String buildStatus = 'STARTED', String stage = '') {
+def notifyBuild(String buildStatus = 'STARTED', String stage = 'NONE') {
   buildStatus =  buildStatus ?: 'SUCCESSFUL'
 
   def colorName = 'RED'
   def colorCode = '#FF0000'
-  def subject = "${buildStatus}: Job ${env.JOB_NAME} Stage ${stage} [${env.BUILD_NUMBER}]"
+  def subject = "Job: ${env.JOB_NAME}, Stage: ${stage} [${env.BUILD_NUMBER}] = ${buildStatus}"
   if(stage != '' && buildStatus == 'FAILED') subject += ", Stage '${stage}'"
   def summary = "${subject} (${env.BUILD_URL})"
 
