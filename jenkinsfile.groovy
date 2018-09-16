@@ -5,7 +5,7 @@ node {
     stage "Init"
       STAGE = "Init"
       checkout scm
-      DEVELOP_BRANCH = "nodejs"
+      DEVELOP_BRANCH = "v1.0.0"
       MASTER_BRANCH = "master"
       PACKAGE_VERSION = sh script: "cat package.json | grep name | head -1 | awk -F: '{ print \$2 }' | sed 's/[\",]//g'", returnStdout: true
       PACKAGE_NAME_LOW = sh script: "cat package.json | grep name | head -1 | awk -F: '{ print \$2 }' | sed 's/[\",]//g' | sed -e 's/./\\L\\0/g'", returnStdout: true
