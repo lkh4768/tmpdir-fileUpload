@@ -16,7 +16,7 @@ describe('file', () => {
     const beforeSendTime = (new Date()).getTime();
     request(app)
       .post('/api/v1/file')
-      .attach('file', '/home/wes/storage/workspace/tmpdir-fileUpload/data/test/mb.txt')
+      .attach('file', __testFilePath__)
       .expect(200)
       .end((err, res) => {
         if(err) {
@@ -56,7 +56,7 @@ describe('file', () => {
 
     request(app)
       .post('/api/v1/file')
-      .attach('file', '/home/wes/storage/workspace/tmpdir-fileUpload/data/test/mb.txt')
+      .attach('file', __testFilePath__)
       .expect(500)
       .end((err, res) => {
         if(err) {
