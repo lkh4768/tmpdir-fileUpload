@@ -1,4 +1,4 @@
-FROM java:8
+FROM node:10.10.0-alpine
 
 COPY build /
 COPY script/docker/docker-entrypoint.sh /
