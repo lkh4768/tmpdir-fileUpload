@@ -38,9 +38,9 @@ afterAll(async () => {
 });
 
 beforeEach(async () => {
-  jest.resetAllMocks();
+  await jest.resetAllMocks();
+  fs.copyFileSync(__testFilePath__, uploadedFiles[0].path);
   await rmfr(newFileDir);
-  await fsPromises.copyFile(__testFilePath__, uploadedFiles[0].path);
 });
 
 describe('file', () => {
