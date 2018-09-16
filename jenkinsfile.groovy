@@ -10,7 +10,6 @@ node {
       PACKAGE_NAME_LOW = sh script: "cat package.json | grep name | head -1 | awk -F: '{ print \$2 }' | sed 's/[\",]//g' | sed 's/ //g' | sed -e 's/./\\L\\0/g'", returnStdout: true
       PACKAGE_VERSION = sh script: "cat package.json | grep version | head -1 | awk -F: '{ print \$2 }' | sed 's/ //g' | sed 's/[\",]//g'", returnStdout: true
       IMAGE_NAME = "tmpdir-${PACKAGE_NAME_LOW}-${PACKAGE_VERSION}"
-      echo $IMAGE_NAME
       REGISTRY_HOST = "dev.sw-warehouse.xyz:1450"
       REGISTRY_USER = "root"
       REGISTRY_PASSWORD = "10WESfpwltmxmfl"
@@ -20,6 +19,8 @@ node {
       }
       if(env.BRANCH_NAME == DEVELOP_BRANCH) ENV_PHASE = "stage"
       else ENV_PHASE = "prd"
+
+      echo "${PACKAGE_NAME_LOW}, ${PACKAGE_VERSION}, ${IMAGE_NAME}, ${REGISTRY_HOST}, ${REGISTRY_USER}, ${REGISTRY_PASSWORD}, ${ENV_PHASE}"
 
     if(env.BRANCH_NAME == DEVELOP_BRANCH){
 			stage "Unit testing"
