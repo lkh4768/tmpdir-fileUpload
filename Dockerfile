@@ -1,4 +1,4 @@
-FROM node:10.10.0-alpine
+FROM node:10.10.0
 
 COPY package.json /package.json
 COPY node_modules /node_modules
