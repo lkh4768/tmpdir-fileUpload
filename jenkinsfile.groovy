@@ -55,8 +55,7 @@ node {
           sh 'npm run build'
         }
 				withDockerRegistry([credentialsId: 'registry', url: 'https://dev.sw-warehouse.xyz:1450']) {
-          sh 'ls -al'
-					def image = docker.build("$REGISTRY_HOST/$IMAGE_NAME Dockerfile")
+					def image = docker.build("$REGISTRY_HOST/$IMAGE_NAME")
 					image.push()
 				}
 
