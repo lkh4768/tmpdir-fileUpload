@@ -66,7 +66,7 @@ describe('file', () => {
     expect(rets.result).toEqual(false);
   });
 
-  test('store, copyFile srcPath/destPath failed', async () => {
+  test('store, CopyFile srcPath/destPath failed', async () => {
     fsPromises.copyFile = jest.fn();
     fsPromises.copyFile.mockRejectedValue(false);
 
@@ -90,5 +90,17 @@ describe('file', () => {
     expect(ret.data.id).toEqual(newFileInfo.id);
     expect(ret.data.submissionTime.getTime()).toEqual(newFileInfo.submissionTime);
     expect(ret.data.expireTime.getTime()).toEqual(newFileInfo.expireTime);
+  });
+
+  test('saveInRepo, Save fileInfo failed', async () => {
+    fileInfo.FileInfo = jest.fn(function() {
+      this.save = new Promise((resolve, reject) => { reject(false); });
+    });
+
+    const newFileInfo = fileInfo.createEntity();
+    const ret = await file.saveInRepo(newFileInfo);
+
+    expect(ret.result).toEqual(false);
+    expect(ret.data).toEqual(null);
   });
 });
