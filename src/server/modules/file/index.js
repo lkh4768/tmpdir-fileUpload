@@ -15,8 +15,8 @@ const store = async (uploadedFiles, fileId) => {
     try {
       await fsPromises.mkdir(Config.get('tmpdir.file.root'));
       ConsoleLogger.info('mkdir(%s) success', Config.get('tmpdir.file.root'));
-    } catch (err) {
-      ConsoleLogger.error('mkdir(%s) failed', Config.get('tmpdir.file.root'), err);
+    } catch (mkdirErr) {
+      ConsoleLogger.error('mkdir(%s) failed', Config.get('tmpdir.file.root'), mkdirErr);
       return { result: false };
     }
   }
@@ -52,7 +52,7 @@ const store = async (uploadedFiles, fileId) => {
 
     try {
       await rmfr(srcPath);
-    } catch(err) {
+    } catch (err) {
       ConsoleLogger.error('rm -rf %s failed', srcPath, err);
       return { result: false, path: destPath };
     }

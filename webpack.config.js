@@ -2,10 +2,8 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const mode = process.env.NODE_ENV && process.env.NODE_ENV === 'development' ? 'development' : 'production';
-
 const config = {
-  mode,
+  mode: 'none',
   name: 'server',
   entry: {
     index: path.resolve(__dirname, 'src/server/index.js'),
@@ -48,9 +46,9 @@ const config = {
   },
   plugins: [
     new CopyWebpackPlugin([{
-      from: path.resolve(__dirname, `src/server/config/${mode}.js`),
-      to: path.resolve(__dirname, `build/config/${mode}.js`),
-      toType: 'file'
+      from: path.resolve(__dirname, `src/server/config`),
+      to: path.resolve(__dirname, `build/config`),
+      toType: 'dir'
     }]),
   ],
 };
