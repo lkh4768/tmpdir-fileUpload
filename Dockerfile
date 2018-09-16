@@ -4,9 +4,9 @@ COPY package.json /package.json
 COPY node_modules /node_modules
 COPY build/config /config
 COPY build/index.js /index.js
-COPY script/docker/docker-entrypoint.sh /
+COPY script/docker/docker-entrypoint.sh /docker-entrypoint.sh
 RUN mkdir -p /app/build/config /applog /storage \
-	&& mv /index.js /app/build \
+	&& mv /index.js /app/build/ \
   && mv /node_modules /app/ \
   && mv /package.json /app/ \
   && chmod +x /docker-entrypoint.sh
@@ -16,4 +16,5 @@ EXPOSE 6000
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
+WORKDIR /app/
 CMD npm run start:$ENV_PHASE
