@@ -1,4 +1,3 @@
-
 #!/bin/bash
 set -e
 
@@ -39,5 +38,8 @@ echo "Copy $CONFIG_NAME.js"
 if [ ! -f /app/build/config/$CONFIG_NAME.js ]; then
 	cp -f /config/$CONFIG_NAME.js /app/build/config/$CONFIG_NAME.js
 fi
+
+echo "NPM Install Production"
+cd /app/ && npm install --production
 
 exec "$@"
