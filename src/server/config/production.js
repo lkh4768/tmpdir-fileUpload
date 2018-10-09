@@ -16,7 +16,7 @@ module.exports = {
     url: 'mongodb://tmpdir:09WESdlatlwjwkdth@tmpdir-mongo-prd:27017/TMP_DIR',
   },
   log: {
-    path: path.resolve('/logs/'),
+    path: path.resolve('/applog/'),
     filename: 'tmpdir-fileupload',
     level: {
       console: 'debug',
