@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   name: 'tmpdir-fileupload',
   server: {
-    port: 443,
+    port: 6000,
   },
   tmpdir: {
     file: {
@@ -19,8 +19,8 @@ module.exports = {
     path: path.resolve('/applog/'),
     filename: 'tmpdir-fileupload',
     level: {
-      console: 'debug',
-      express: 'info',
+      console: 'error',
+      express: 'error',
     },
     fileDateFormat: '%Y%m%d%H',
   },
