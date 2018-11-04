@@ -13,7 +13,7 @@ module.exports = {
     },
   },
   db: {
-    url: 'mongodb://dev.sw-warehouse.xyz:7017/TMP_DIR',
+    url: 'mongodb://dev.sw2h.xyz:7017/TMP_DIR',
   },
   log: {
     path: path.resolve(__dirname, '../../../logs'),
