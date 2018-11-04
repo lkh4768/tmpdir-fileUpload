@@ -7,12 +7,9 @@ const globalConfigPath = path.join(__dirname, 'globalConfig.json');
 
 const mongod = new MongodbMemoryServer.default({
   instance: {
-    dbName: 'test'
+    dbName: 'test',
   },
-  binary: {
-    version: '3.2.18'
-  },
-  debug: true
+  debug: true,
 });
 
 module.exports = async function() {
