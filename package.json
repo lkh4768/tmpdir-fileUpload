@@ -1,0 +1,60 @@
+{
+  "name": "tmpdir-fileUpload",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test NODE_CONFIG_DIR=./src/server/config jest --config=src/test/config.js --detectOpenHandles",
+    "test:coverage": "NODE_ENV=test NODE_CONFIG_DIR=./src/server/config jest --config=src/test/config.js --coverage",
+    "clean": "rm -rf build",
+    "build": "webpack --config webpack.config.js --progress --profile --colors",
+    "start:dev": "NODE_ENV=development NODE_CONFIG_DIR=./build/config node build/index.js",
+    "all:dev": "npm run clean && npm run build:dev && npm run start:dev",
+    "start:stage": "NODE_ENV=stage NODE_CONFIG_DIR=./build/config node build/index.js",
+    "start:prd": "NODE_ENV=production NODE_CONFIG_DIR=./build/config node build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://lkh4768:2%40tlqkftozl@github.com/lkh4768/tmpdir-fileUpload.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/lkh4768/tmpdir-fileUpload/issues"
+  },
+  "jest-junit": {
+    "output": "./reports/junit.xml"
+  },
+  "dependencies": {
+    "bunyan": "~1.8.12",
+    "bunyan-rotating-file-stream": "~1.6.3",
+    "config": "^2.0.1",
+    "express": "~4.16.3",
+    "express-bunyan-logger": "~1.3.3",
+    "mongoose": "^5.2.14",
+    "multer": "^1.3.1",
+    "rmfr": "^2.0.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^9.0.0",
+    "babel-jest": "^23.4.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "copy-webpack-plugin": "^4.5.2",
+    "eslint": "^5.5.0",
+    "eslint-config-airbnb": "~17.1.0",
+    "eslint-import-resolver-webpack": "^0.10.1",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "~6.1.1",
+    "eslint-plugin-react": "~7.11.1",
+    "jest": "^23.5.0",
+    "jest-junit": "^5.1.0",
+    "mongodb-memory-server": "^2.6.2",
+    "supertest": "^3.3.0",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
